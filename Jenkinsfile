@@ -4,7 +4,7 @@ pipeline {
         IMAGE_TAG = "1.0.0"
         CONTAINER_NAME = "webapp"
         DOCKER_HUB_CREDENTIALS_ID = "dockerhub_jlkatobo"
-        
+        SSH_CREDENTIALS_ID = "aws_key"
         SERVER_USER = "ubuntu"
         SERVER_IP = "35.175.238.136"
     }
@@ -45,7 +45,9 @@ pipeline {
             agent any
             steps{
                 script{
-                    sh "echo 'Hellooo!'"
+                    withCredentials([sshUserPrivateKey(credentialsId: SSH_CREDENTIALS_ID, keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: 'SSH_PASSPHRASE')]) {
+                        sh "echo 'Helllooo!'"
+                    }
                 }
             }
         }
