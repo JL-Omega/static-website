@@ -22,10 +22,12 @@ pipeline {
             agent any
             steps{
                 script{
-                    sh "docker rm -f ${CONTAINER_NAME} || true"
-                    sh "docker run --name ${CONTAINER_NAME} -d -p 80:80 ${IMAGE_NAME}:${IMAGE_TAG}"
-                    sh "sleep 10"
-                    sh "curl -X GET http://localhost:80 | grep -i 'dimension'"
+                    sh """
+                        docker rm -f ${CONTAINER_NAME} || true
+                        docker run --name ${CONTAINER_NAME} -d -p 80:80 ${IMAGE_NAME}:${IMAGE_TAG}
+                        sleep 10
+                        curl -X GET http://localhost:80 | grep -i 'dimension'
+                    """
                 }
             }
         }
@@ -33,11 +35,13 @@ pipeline {
             agent any
             steps{
                 script{
-                    sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}"
                     withCredentials([usernamePassword(credentialsId: DOCKER_HUB_CREDENTIALS_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh "docker login -u $USERNAME -p $PASSWORD"
                     }
-                    sh "docker push jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}"
+                    sh """
+                        docker tag ${IMAGE_NAME}:${IMAGE_TAG} jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}
+                        docker push jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}
+                    """
                 }
             }
         }
