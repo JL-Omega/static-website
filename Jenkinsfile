@@ -5,7 +5,6 @@ pipeline {
         CONTAINER_NAME = "webapp"
         DOCKER_HUB_CREDENTIALS_ID = "dockerhub_jlkatobo"
         
-        ID_RSA = credentials("aws_key")
         SERVER_USER = "ubuntu"
         SERVER_IP = "35.175.238.136"
     }
@@ -46,7 +45,7 @@ pipeline {
             agent any
             steps{
                 script{
-                    sh "cat $DOCKER_HUB_USERNAME"
+                    sh "echo 'Hellooo!'"
                 }
             }
         }
