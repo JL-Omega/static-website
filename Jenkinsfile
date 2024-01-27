@@ -45,10 +45,7 @@ pipeline {
         stage('deployment-webapp'){
             steps{
                 script{
-                    sh "chmod og= $ID_RSA"
-                    sh "apk update && apk add openssh-client"
-                    sh "ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP withCredentials([usernamePassword(credentialsId: DOCKER_HUB_CREDENTIALS_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        sh "docker login -u $USERNAME -p $PASSWORD"}"
+                    sh "cat $DOCKER_HUB_USERNAME"
                 }
             }
         }
