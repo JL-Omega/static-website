@@ -49,7 +49,7 @@ pipeline {
                     withCredentials([file(credentialsId: SSH_CREDENTIALS_ID, variable: 'SSH_PRIVATE_KEY')]) {
                         // Jenkins injectera automatiquement la variable SSH_PRIVATE_KEY
                         sh "echo ${SSH_PRIVATE_KEY}"
-                        
+                        sh "docker login -u $USERNAME -p $PASSWORD" 
                     }
                 }
             }
