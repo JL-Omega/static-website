@@ -49,7 +49,9 @@ pipeline {
                     withCredentials([file(credentialsId: SSH_CREDENTIALS_ID, variable: 'SSH_PRIVATE_KEY')]) {
                         // Jenkins injectera automatiquement la variable SSH_PRIVATE_KEY
                         sh "echo ${SSH_PRIVATE_KEY}"
-                        sh "docker pull jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}" 
+                        sh "docker pull jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}"
+                        sh "docker container rm -f $CONTAINER_NAME || true" 
+                        sh "docker run --name $CONTAINER_NAME -d -p 80:80 jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}"
                     }
                 }
             }
