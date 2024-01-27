@@ -53,10 +53,6 @@ pipeline {
                         sh "ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP docker run --name $CONTAINER_NAME -d -p 8080:80 jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}"
                     }  
                 }
-                environment{
-                    name = 'test'
-                    url = 'http://mpande'
-                }
             }
         }
     }
