@@ -25,5 +25,14 @@ pipeline {
                 }
             }
         }
+        stage('artifact-webapp'){
+            agent any
+            steps{
+                script{
+                    sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}"
+                    sh "docker push jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}"
+                }
+            }
+        }
     }
 }
