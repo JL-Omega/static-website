@@ -4,7 +4,7 @@ pipeline {
         IMAGE_TAG = "1.0.0"
         CONTAINER_NAME = "webapp"
         DOCKER_HUB_CREDENTIALS_ID = "dockerhub_jlkatobo"
-        DOCKER_HUB_USERNAME = credentialsId('dockerhub_jlkatobo')
+        
         ID_RSA = credentials("aws_key")
         SERVER_USER = "ubuntu"
         SERVER_IP = "35.175.238.136"
