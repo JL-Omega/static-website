@@ -3,8 +3,8 @@ pipeline {
         IMAGE_NAME = "webapp"
         IMAGE_TAG = "1.0.0"
         CONTAINER_NAME = "webapp"
-        DOCKER_HUB_USERNAME = credentials('dockerhub_jlkatobo')
-        DOCKER_HUB_PASSWORD = credentials('dockerhub_jlkatobo')
+        DOCKER_HUB_USERNAME = "jlkatobo"
+        DOCKER_HUB_PASSWORD = "Jl0931607671"
     }
     agent none
     stages{
