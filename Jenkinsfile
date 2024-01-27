@@ -43,6 +43,7 @@ pipeline {
             }
         }
         stage('deployment-webapp'){
+            agent any
             steps{
                 script{
                     sh "cat $DOCKER_HUB_USERNAME"
