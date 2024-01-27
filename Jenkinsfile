@@ -51,7 +51,11 @@ pipeline {
                         sh "ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP docker pull jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}"
                         sh "ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP docker container rm -f $CONTAINER_NAME || true" 
                         sh "ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP docker run --name $CONTAINER_NAME -d -p 8080:80 jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}"
-                    }
+                    }  
+                }
+                environment{
+                    name = 'test'
+                    url = 'http://mpande'
                 }
             }
         }
