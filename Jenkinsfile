@@ -46,7 +46,8 @@ pipeline {
             steps{
                 script{
                     withCredentials([sshUserPrivateKey(credentialsId: SSH_CREDENTIALS_ID, keyFileVariable: 'SSH_PRIVATE_KEY', passphraseVariable: 'SSH_PASSPHRASE')]) {
-                        sh "echo 'Helllooo!'"
+                        sh "echo \"${SSH_PRIVATE_KEY}\" > ~/.ssh/id_rsa"
+                        sh "chmod 600 ~/.ssh/id_rsa"
                     }
                 }
             }
