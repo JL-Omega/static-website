@@ -48,9 +48,8 @@ pipeline {
                     // Utilisation de withCredentials pour récupérer la clé privée SSH
                     withCredentials([file(credentialsId: SSH_CREDENTIALS_ID, variable: 'SSH_PRIVATE_KEY')]) {
                         // Jenkins injectera automatiquement la variable SSH_PRIVATE_KEY
-                        sh "echo \"${SSH_PRIVATE_KEY}\" > ~/.ssh/id_rsa"
-                        sh "chmod 600 ~/.ssh/id_rsa"
-                        // Ajoutez ici vos commandes de déploiement SSH
+                        sh "echo ${SSH_PRIVATE_KEY}"
+                        
                     }
                 }
             }
