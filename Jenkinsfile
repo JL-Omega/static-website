@@ -48,9 +48,9 @@ pipeline {
                     // Utilisation de withCredentials pour récupérer la clé privée SSH
                     withCredentials([file(credentialsId: SSH_CREDENTIALS_ID, variable: 'SSH_PRIVATE_KEY')]){
                         sh """ 
-                            "ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP docker pull jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}"
-                            "ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP docker container rm -f $CONTAINER_NAME || true" 
-                            "ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP docker run --name $CONTAINER_NAME -d -p 8080:80 jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}" 
+                            ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP docker pull jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}
+                            ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP docker container rm -f $CONTAINER_NAME || true 
+                            ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP docker run --name $CONTAINER_NAME -d -p 8080:80 jlkatobo/${IMAGE_NAME}:${IMAGE_TAG} 
                         """
                     }
                 }
