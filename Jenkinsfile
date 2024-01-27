@@ -4,6 +4,7 @@ pipeline {
         IMAGE_TAG = "1.0.0"
         CONTAINER_NAME = "webapp"
         DOCKER_HUB_CREDENTIALS_ID = "dockerhub_jlkatobo"
+        DOCKER_HUB_USERNAME = credentialsId('dockerhub_jlkatobo')
         ID_RSA = credentials("aws_key")
         SERVER_USER = "ubuntu"
         SERVER_IP = "35.175.238.136"
@@ -47,8 +48,8 @@ pipeline {
                     sh "chmod og= $ID_RSA"
                     sh "apk update && apk add openssh-client"
                     sh "ssh -i $ID_RSA -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP withCredentials([usernamePassword(credentialsId: DOCKER_HUB_CREDENTIALS_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                        sh "docker login -u $USERNAME -p $PASSWORD"
-                    }"
+                        sh "docker login -u $USERNAME -p $PASSWORD"}"
+                }
             }
         }
     }
