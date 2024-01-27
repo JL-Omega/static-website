@@ -3,8 +3,7 @@ pipeline {
         IMAGE_NAME = "webapp"
         IMAGE_TAG = "1.0.0"
         CONTAINER_NAME = "webapp"
-        DOCKER_HUB_USERNAME = "jlkatobo"
-        DOCKER_HUB_PASSWORD = "Jl0931607671"
+        DOCKER_HUB_CREDENTIALS_ID = "dockerhub_jlkatobo"
     }
     agent none
     stages{
@@ -32,7 +31,9 @@ pipeline {
             steps{
                 script{
                     sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}"
-                    sh "docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}"
+                    withCredentials([usernamePassword(credentialsId: DOCKER_HUB_CREDENTIALS_ID, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        sh "docker login -u $USERNAME -p $PASSWORD"
+                    }
                     sh "docker push jlkatobo/${IMAGE_NAME}:${IMAGE_TAG}"
                 }
             }
